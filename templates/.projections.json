@@ -1,0 +1,52 @@
+{
+  "app/controllers/*_controller.rb": {
+    "type": "controller",
+    "alternate": "spec/controllers/{}_controller_spec.rb",
+    "template": ["module <%= application_namespace %>", "  class {camelcase}Controller", "    include <%= application_namespace %>::Controller", "  end", "end"]
+  },
+  "spec/controllers/*_controller_spec.rb": {
+    "type": "controllerspec",
+    "alternate": "app/controllers/{}_controller.rb",
+    "template": ["require 'spec_helper'", "", "describe {camelcase}Controller do", "end"]
+  },
+  "app/views/*.rb": {
+    "type": "view",
+    "alternate": "spec/views/*_spec.rb",
+    "template": ["module <%= application_namespace %>", "  module {dirname|camelcase|colons}", "    class {basename|camelcase}", "      include <%= application_namespace %>::View", "    end", "  end", "end"]
+  },
+  "spec/views/*_spec.rb": {
+    "type": "viewspec",
+    "alternate": "app/views/{}.rb",
+    "template": ["require 'spec_helper'", "", "describe {camelcase|colons} do", "end"]
+  },
+  "app/entities/*.rb": {
+    "type": "entity",
+    "alternate": "spec/entities/{}_spec.rb",
+    "template": ["module <%= application_namespace %>", "  class {camelcase}", "    include Lotus::Entity", "  end", "end"]
+  },
+  "spec/entities/*_spec.rb": {
+    "type": "entityspec",
+    "alternate": "app/entities/{}.rb",
+    "template": ["require 'spec_helper'", "", "describe {camelcase} do", "end"]
+  },
+  "app/repositories/*_repository.rb": {
+    "type": "repository",
+    "alternate": "spec/repositories/{}_repository_spec.rb",
+    "template": ["module <%= application_namespace %>", "  class {camelcase}Repository", "    include Lotus::Repository", "  end", "end"]
+  },
+  "spec/repositories/*_repository_spec.rb": {
+    "type": "repositoryspec",
+    "alternate": "app/repositories/{}_repository.rb",
+    "template": ["require 'spec_helper'", "", "describe {camelcase}Repository do", "end"]
+  },
+  "app/presenters/*_presenter.rb": {
+    "type": "presenter",
+    "alternate": "spec/presenters/{}_presenter_spec.rb",
+    "template": ["module <%= application_namespace %>", "  class {camelcase}Presenter", "    include Lotus::Presenter", "  end", "end"]
+  },
+  "spec/presenters/*_presenter_spec.rb": {
+    "type": "presenterspec",
+    "alternate": "app/presenters/{}_presenter.rb",
+    "template": ["require 'spec_helper'", "", "describe {camelcase}Presenter do", "end"]
+  },
+}

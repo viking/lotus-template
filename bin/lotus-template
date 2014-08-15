@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+require 'erb'
+require 'fileutils'
+
+app_name = ARGV[0]
+if app_name.nil?
+  $stderr.puts "Syntax: #{$0} <application-name>"
+  exit 1
+end
+
+application_namespace = app_name.capitalize
+root_path = File.expand_path(application_namespace.downcase)
+if File.exist?(root_path)
+  $stderr.puts "The #{application_namespace} directory already exists."
+  exit 1
+end
+FileUtils.mkdir(root_path)
+
+Dir.chdir(File.expand_path('../../templates', __FILE__)) do
+  Dir.glob('**/*', File::FNM_DOTMATCH).each do |_filename|
+    next if File.basename(_filename) == '.'
+
+    $stderr.puts(_filename)
+
+    if File.directory?(_filename)
+      FileUtils.mkdir(File.join(root_path, _filename))
+    else
+      output = ERB.new(File.read(_filename)).result(binding)
+      File.open(File.join(root_path, _filename), 'w') { |f| f.write(output) }
+    end
+  end
+end
